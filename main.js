@@ -12,6 +12,7 @@ let remoteUsers = {};
 // Toggles local user to join a stream with camera and audio track.
 let joinAndDisplayLocalStream = async () => {
   client.on("user-published", handleUserJoined);
+  client.on("user-left", handleUserLeft);
 
   let UID = await client.join(APP_ID, CHANNEL, TOKEN, null);
 
@@ -61,6 +62,11 @@ let handleUserJoined = async (user, mediaType) => {
   if (mediaType === "audio") {
     user.audioTrack.play();
   }
+};
+
+let handleUserLeft = async (user) => {
+  delete remoteUsers[user.uid];
+  document.getElementById(`user-container-${user.uid}`).remove();
 };
 
 document.getElementById("join-btn").addEventListener("click", joinStream);
