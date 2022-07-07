@@ -1,6 +1,6 @@
-const APP_ID = process.env.APP_ID;
-const TOKEN = process.env.TOKEN;
-const CHANNEL = process.env.CHANNEL;
+const APP_ID = `b0fe44202e094c95b1e0292b79c054d1`;
+const TOKEN = `006b0fe44202e094c95b1e0292b79c054d1IAAGUp4tNqLongCCoIjimUMM/XgwVgdlrwh63t4tLLZTgmTNKL8AAAAAEABC+vTdun7HYgEAAQC5fsdi`;
+const CHANNEL = `main`;
 
 const client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
 
@@ -15,23 +15,24 @@ let joinAndDisplayLocalStream = async () => {
 
   localTracks = await AgoraRTC.createMicrophoneAndCameraTracks();
 
-  let player = `<div class='video-container' id='user-container-${UID}'>
-                    <div class='video-player' id='user-${UID}'></div>
+  let player = `<div class="video-container" id="user-container-${UID}">
+                    <div class="video-player" id="user-${UID}"></div>
                 </div>`;
 
   document
     .getElementById("video-streams")
-    .insertAdjacentElement("beforeend", player);
+    .insertAdjacentHTML("beforeend", player);
 
   localTracks[1].play(`user-${UID}`);
 
   await client.publish([localTracks[0], localTracks[1]]);
-
-  let joinStream = async () => {
-    await joinAndDisplayLocalStream();
-    document.getElementById("join-btn").style.display = "none";
-    document.getElementById("stream-controls").style.display = "flex";
-  };
-
-  document.getElementById("join-btn").addEventListener("click", joinStream);
 };
+
+let joinStream = async () => {
+  await joinAndDisplayLocalStream();
+
+  document.getElementById("join-btn").style.display = "none";
+  document.getElementById("stream-controls").style.display = "flex";
+};
+
+document.getElementById("join-btn").addEventListener("click", joinStream);
