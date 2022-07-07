@@ -1,3 +1,9 @@
+body {
+  background: #0f2027;
+  background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+}
+
 #video-streams {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
